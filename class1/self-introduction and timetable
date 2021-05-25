@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+
+<title>
+g323nogu 自己紹介,時間割
+</title>
+
+<html>
+<head>
+<style type="text/css">
+<!--
+p {color:blue; text-decoration:underline; letter-spacing:20px; font-family:Noto Sans Japaneze;}
+q {color:orange; letter-spacing:20px; font-family:Noto Sans Japaneze; border-top: 9px dotted #f45e5e; border-bottom:: 9px dotted #f45e5e; }
+-->
+</style>
+</head>
+<body>
+
+<h1>目次</h1>
+<h2>
+<a href="#sec1">自己紹介</a>
+</h2>
+<h2>
+<a href="#sec2">時間割</a>
+</h2>
+<pre>
+<pre>
+
+<h2>
+<p id="sec1">自己紹介</p>
+</h2>
+
+<ul>
+<li>
+<ruby><rb>野口 夏希<rt>ノグチ ナツキ</ruby>
+</li>
+<li>コース：コンピュータ科学</li>
+<li><font color="green"><a target="_blank" href="https://www.city.takamatsu.kagawa.jp/">出身：高松市（香川県）</a></font></li>
+<li>高校：香川県立高松高校</li>
+
+
+<h2>高松市について</h2>
+<ul>
+<li><a href="#sec3">人口:</a></li>
+<li><a href="#sec4">産業</a></li>
+<li><a href="#sec5">観光名所</a></li>
+</ul>
+
+<pre>
+<pre>
+
+<li><a id="sec3">人口:424,258人（令和3年4月1日現在）</a></li>
+<li><a id="sec4">産業：</a></li>
+<ul>
+<li>第1次産業:2.7%</li>
+<li>第2次産業:19.6%</li>
+<li>第3次産業:74.0%</li>
+</ul>
+<li><a id="sec5">観光名所</a></li>
+<ul>
+<li><a href="https://www.my-kagawa.jp/ritsuringarden/"><ruby><rb>栗林公園<rt>りつりんこうえん</ruby></a>
+<img scr="https://www.my-kagawa.jp/image/rendering/feature_paragraph_image/2773/keep/858?v=318052f912d19f63819e8a737f561c66f47ee8c1"></li>
+<li><a href="https://www.my-kagawa.jp/shimatabi/feature/shimatabi/megijima"><ruby><rb>女木島<rt>めぎじま</ruby></a></li>
+<li><a href="https://www.my-kagawa.jp/shimatabi/feature/shimatabi/ogijima"><ruby><rb>男木島<rt>おぎじま</ruby></a></li>
+<img src="home/g323nogu/download/600.png">
+</ul>
+</ul>
+
+<pre>
+<pre>
+<pre>
+
+<h2>
+<q id="sec2">時間割</q>
+</h2>
+
+<h3>第1Q</h3>
+<table border=1 cellpadding=0 cellspacing=0>
+<tr><th>&nbsp;</th>
+  <th width=2 bgcolor="skyblue" rowspan=8></th>
+  <th>月</th><th>火</th><th>水</th><th>木</th><th>金</th> </tr>
+  <tr><td height=4 bgcolor="skyblue" colspan=7></td></tr>
+<tr align="center">
+ <th>1 限</th>   <td><a target="_self" href="https://campus.ehime-u.ac.jp/Portal/Public/Syllabus/DetailMain.aspx?student=1&lct_year=2021&lct_cd=A0537&je_cd=1">数学入門</a></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td> </tr>
+<tr align="center">
+ <th>2 限</th>   <td><a target="_self" href="https://campus.ehime-u.ac.jp/Portal/Public/Syllabus/DetailMain.aspx?student=1&lct_year=2021&lct_cd=15317&je_cd=1">応用数学III</a></td><td><a target="_self" href="https://campus.ehime-u.ac.jp/Portal/Public/Syllabus/DetailMain.aspx?student=1&lct_year=2021&lct_cd=A0407&je_cd=1">ことばの世界</a></td><td>&nbsp;</td><td><a target="_self" href="https://campus.ehime-u.ac.jp/Portal/Public/Syllabus/DetailMain.aspx?student=1&lct_year=2021&lct_cd=A0565&je_cd=1">農学入門</a></td><td>&nbsp;</td> </tr>
+<tr align="center">
+ <th>昼</th>   <td colspan=5>ランチタイム &#x1f60b;</td> </tr>
+<tr align="center">
+ <th>3 限</th>   <td><a target="_self" href="https://campus.ehime-u.ac.jp/Portal/Public/Syllabus/DetailMain.aspx?student=1&lct_year=2021&lct_cd=15313&je_cd=1">PBL演習I</a></td><td><a target="_self" href="https://campus.ehime-u.ac.jp/Portal/Public/Syllabus/DetailMain.aspx?student=1&lct_year=2021&lct_cd=15316&je_cd=1">データベース</a></td><td>&nbsp;</td><td><a target="_self" href="https://campus.ehime-u.ac.jp/Portal/Public/Syllabus/DetailMain.aspx?student=1&lct_year=2021&lct_cd=15323&je_cd=1">組込みシステム開発基礎</a></td><td rowspan=2><a target="_self" href="https://campus.ehime-u.ac.jp/Portal/Public/Syllabus/DetailMain.aspx?student=1&lct_year=2021&lct_cd=A5302&je_cd=1">情報工学実験III</a></td> </tr>
+<tr align="center">
+ <th>4 限</th>   <td>&nbsp;</td><td><a target="_self" href="https://campus.ehime-u.ac.jp/Portal/Public/Syllabus/DetailMain.aspx?student=1&lct_year=2021&lct_cd=15314&je_cd=1">ウェブプログラミング</a></td>  <td><a target="_self" href="https://campus.ehime-u.ac.jp/Portal/Public/Syllabus/DetailMain.aspx?student=1&lct_year=2021&lct_cd=A5028&je_cd=1">工学倫理・知財・キャリア―リテラシーI</a></td><td><a target="_self" href="https://campus.ehime-u.ac.jp/Portal/Public/Syllabus/DetailMain.aspx?student=1&lct_year=2021&lct_cd=15318&je_cd=1">機械学習II</a></td> </tr>
+<tr align="center">
+ <th>5 限</th>   <td><a target="_self" href="https://campus.ehime-u.ac.jp/Portal/Public/Syllabus/DetailMain.aspx?student=1&lct_year=2021&lct_cd=10921&je_cd=1">Speaking & Reading Strategies</a></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><a target="_self" href="https://campus.ehime-u.ac.jp/Portal/Public/Syllabus/DetailMain.aspx?student=1&lct_year=2021&lct_cd=10924&je_cd=1">Oral Communication</a></td>
+</tr>
+</table>
+
+<h3>第2Q</h3>
+<table border=1 cellpadding=0 cellspacing=0>
+<tr><th>&nbsp;</th>
+  <th width=2 bgcolor="aqua" rowspan=8></th>
+  <th>月</th><th>火</th><th>水</th><th>木</th><th>金</th> </tr>
+  <tr><td height=4 bgcolor="aqua" colspan=7></td></tr>
+<tr align="center">
+ <th>1 限</th>   <td><a target="_self" href="https://campus.ehime-u.ac.jp/Portal/Public/Syllabus/DetailMain.aspx?student=1&lct_year=2021&lct_cd=B0503&je_cd=1">環境学入門</a></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td> </tr>
+<tr align="center">
+ <th>2 限</th>   <td><a target="_self" href="https://campus.ehime-u.ac.jp/Portal/Public/Syllabus/DetailMain.aspx?student=1&lct_year=2021&lct_cd=15317&je_cd=1">応用数学III</a></td><td><a target="_self" href="https://campus.ehime-u.ac.jp/Portal/Public/Syllabus/DetailMain.aspx?student=1&lct_year=2021&lct_cd=B0425&je_cd=1">現代と科学技術</a></td><td>&nbsp;</td><td><a target="_self" href="https://campus.ehime-u.ac.jp/Portal/Public/Syllabus/DetailMain.aspx?student=1&lct_year=2021&lct_cd=B0519&je_cd=1">地理学入門</a></td><td>&nbsp;</td> </tr>
+<tr align="center">
+ <th>昼</th>   <td colspan=5>ランチタイム &#x1f60b;</td> </tr>
+<tr align="center">
+ <th>3 限</th>   <td><a target="_self" href="https://campus.ehime-u.ac.jp/Portal/Public/Syllabus/DetailMain.aspx?student=1&lct_year=2021&lct_cd=15313&je_cd=1">PBL演習I</a></td><td><a target="_self" href="https://campus.ehime-u.ac.jp/Portal/Public/Syllabus/DetailMain.aspx?student=1&lct_year=2021&lct_cd=15316&je_cd=1">データベース</a></td><td>&nbsp;</td><td><a href="https://campus.ehime-u.ac.jp/Portal/Public/Syllabus/DetailMain.aspx?student=1&lct_year=2021&lct_cd=15323&je_cd=1">組込みシステム開発基礎</a></td><td rowspan=2><a target="_self" href="https://campus.ehime-u.ac.jp/Portal/Public/Syllabus/DetailMain.aspx?student=1&lct_year=2021&lct_cd=B5302&je_cd=1">情報工学実験IV</a></td> </tr>
+<tr align="center">
+ <th>4 限</th>   <td>&nbsp;</td><td><a target="_self" href="https://campus.ehime-u.ac.jp/Portal/Public/Syllabus/DetailMain.aspx?student=1&lct_year=2021&lct_cd=15314&je_cd=1">ウェブプログラミング</a></td>  <td><a target="_self" href="https://campus.ehime-u.ac.jp/Portal/Public/Syllabus/DetailMain.aspx?student=1&lct_year=2021&lct_cd=B5028&je_cd=1">工学倫理・知財・キャリア―リテラシーII</a></td><td><a target="_self" href="https://campus.ehime-u.ac.jp/Portal/Public/Syllabus/DetailMain.aspx?student=1&lct_year=2021&lct_cd=15318&je_cd=1">機械学習II</a></td> </tr>
+<tr align="center">
+ <th>5 限</th>   <td><a target="_self" href="https://campus.ehime-u.ac.jp/Portal/Public/Syllabus/DetailMain.aspx?student=1&lct_year=2021&lct_cd=10921&je_cd=1">Speaking & Reading Strategies</a></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><a target="_self" href="https://campus.ehime-u.ac.jp/Portal/Public/Syllabus/DetailMain.aspx?student=1&lct_year=2021&lct_cd=10924&je_cd=1">Oral Communication</a></td>
+</tr>
+</table>
+</body>
+</html>
