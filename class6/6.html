@@ -15,13 +15,13 @@
     <table>
       <script langnage="JavaScript">
 
-      IDLE_INTERVAL		= 200;			//	もぐらのスピード（コマ表示間隔）単位:1/1000秒
+      IDLE_INTERVAL		  = 200;			//	もぐらのスピード（コマ表示間隔）単位:1/1000秒
       KICKING_INTERVAL	= 350;			//	もぐらのケツを蹴る間隔 単位:1/1000秒
-      GAME_SECONDS		= 30;			//	制限時間：0秒
+      GAME_SECONDS		  = 30;			//	制限時間：0秒
 
       //もぐらのマス目
-      NUM_ROWS = 4;
-      NUM_COLS = 4;
+      NUM_ROWS = 5;
+      NUM_COLS = 5;
 
       MAX_IDLE_COUNT = (1000 / IDLE_INTERVAL) * GAME_SECONDS;
 
@@ -30,7 +30,7 @@
       STATUS_DOWN		= 0;				//	穴にもぐってる
       STATUS_TO_UP	= 1;				//	出る途中
       STATUS_TO_DOWN	= -STATUS_TO_UP;	//	入る途中
-      STATUS_UP		= 2;				//	出てる
+      STATUS_UP		  = 2;				//	出てる
       STATUS_HOGE		= 3;				//	たたかれた
 
       HOGE_TIMES		= 3;				//	たたかれた状態を何コマぶん表示するか
@@ -151,7 +151,7 @@
           ++gIdleCount;
 
           //	30点
-          if (gNumHits == 5) {
+          if (gNumHits >= 30) {
             //	得点を表示して終了
             en = new Date().getTime();
             clearTimeout(tid);
@@ -290,6 +290,7 @@
     <br>
     <li type="disc">その他</li>
     <li type="circle">顔がぴえんとなれば叩けています</li>
+    <li type="circle">最大30,000点</li>
   </ul>
 
   </div>
