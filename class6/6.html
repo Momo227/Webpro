@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8"/>
+  <title>もぐらたたき</title>
+  <style>
+  </style>
+
+  <body background="https://s3-ap-northeast-1.amazonaws.com/cdn.word-dictionary.jp/production/imgs/images/000/007/644/original.jpg?1607674396">
+    <div style="background:#ffffff; text-align:center; padding:10px; border-radius:10px; border: 2px dotted #556b2f;width:500px;">
+      <h4>もぐらを 30 匹たたくまでの時間を競うゲームです。</h4>
+      <a href="#sec1">ゲームについて</a>
+    </div>
+
+    <table>
+      <script langnage="JavaScript">
+
+      IDLE_INTERVAL		  = 200;			//	もぐらのスピード（コマ表示間隔）単位:1/1000秒
+      KICKING_INTERVAL	= 350;			//	もぐらのケツを蹴る間隔 単位:1/1000秒
+      GAME_SECONDS		  = 30;			//	制限時間：0秒
+
+      //もぐらのマス目
+      NUM_ROWS = 5;
+      NUM_COLS = 5;
+
+      MAX_IDLE_COUNT = (1000 / IDLE_INTERVAL) * GAME_SECONDS;
+
+
+      //	もぐらの状態
+      STATUS_DOWN		= 0;				//	穴にもぐってる
+      STATUS_TO_UP	= 1;				//	出る途中
+      STATUS_TO_DOWN	= -STATUS_TO_UP;	//	入る途中
+      STATUS_UP		  = 2;				//	出てる
+      STATUS_HOGE		= 3;				//	たたかれた
+
+      HOGE_TIMES		= 3;				//	たたかれた状態を何コマぶん表示するか
+
+      STATUS_HOGE_MAX	= STATUS_HOGE + HOGE_TIMES - 1;
+
+
+      //画像をまとめて読み込む
+      gMoguraimgs = new Image();		//読み込み先の確保
+      gMoguraimgs[STATUS_DOWN]	= "./mogu/mogu0.gif";	//	もぐってる画像
+      gMoguraimgs[STATUS_TO_UP]	= "./mogu/mogu1.gif";	//	出入りの途中の画像
+      gMoguraimgs[STATUS_UP]		= "./mogu/mogu2.gif";	//	出てる画像
+      gMoguraimgs[STATUS_HOGE]	= "./mogu/mogu3.gif";	//	たたかれたの画像
+
+      var st, en, score, tid = null; //開始時刻、終了時刻、得点、タイマーID
+      var start, end = 0;
+
+      //	各あなのもぐらの状態を配列変数で用意
+      gMoguraStatus = new Array(NUM_ROWS * NUM_COLS);
+      for (statusIdx = 0; statusIdx < NUM_ROWS * NUM_COLS; ++statusIdx) {
+        gMoguraStatus[statusIdx] = 0;	//	初期化
+      }
+
+      //	テーブルを描くHTMLを出力する
+      for (rowIdx = 0; rowIdx < NUM_ROWS; ++rowIdx) {
+        document.write('<TR>');
+        for (colIdx = 0; colIdx < NUM_COLS; ++colIdx) {
+          var imgName = getimgName(rowIdx, colIdx);
+          document.write('<TD><img src="', gMoguraimgs[STATUS_DOWN], '" NAME="', imgName, '" onMouseDown="clickimg(', rowIdx, ',', colIdx, ')"></TD>');
+        }
+        document.write('</TR>');
+      }
+
+      gKickingTimer = 0;		//	けつを蹴るタイマー
+      gIdleTimer = 0;			//	アイドリング（もぐらのコマを進める）タイマー
+      gIdleCount = 0;			//	アイドリング処理を行なった回数
+      gNumHits = 0;			//	ヒット数
+
+      //	指定した行・列のもぐらの状態を設定する関数
+      function setStatus(rowIdx, colIdx, mogStatus) {
+        gMoguraStatus[rowIdx * NUM_COLS + colIdx] = mogStatus;
+
+        //	指定された行・列の<img src=... NAME=xxxx>のxxxxに相当する部分を得る
+        var imgName = getimgName(rowIdx, colIdx);
+        var imgStatus = mogStatus;
+
+        //	出る途中の画像は入る途中の画像と同じなので、符号を反転させる。
+        //	右のコメント中の処理とほぼ同じ
+        if (imgStatus < 0) {			//	if (imgStatus == STATUS_TO_DOWN) {
+          imgStatus = -imgStatus;		//		imgStatus = STATUS_TO_UP;
+        }								//	}
+        //	STATUS_HOGE以降は、たたかれた状態でしばらく停止させたように
+        //	見せかけるため、状態変数だけ値が増えていって、画像はたたかれた状態のもの
+        //	(STATUS_HOGE)と同じ、というようにする
+        if (STATUS_HOGE < imgStatus) {
+          imgStatus = STATUS_HOGE;
+        }
+        //	画像を描き換える
+        document.images[imgName].src = gMoguraimgs[imgStatus];
+      }
+
+      //	指定した行・列のもぐらの状態を得る関数
+      function getStatus(rowIdx, colIdx) {
+        return (gMoguraStatus[rowIdx * NUM_COLS + colIdx]);
+      }
+
+      //	指定した行・列のもぐらの画像名を得る関数
+      function getimgName(rowIdx, colIdx) {
+        return ("mogura" + rowIdx.toString() + colIdx.toString());
+      }
+
+      //	指定した行・列がクリックされた時の処理をする関数
+      function clickimg(rowIdx, colIdx) {
+        //	もぐらの状態を調べて
+        var mogStatus = getStatus(rowIdx, colIdx);
+        //	出る途中か入る途中、あるいは完全に出てる場合、
+        if (mogStatus == STATUS_TO_UP ||
+          mogStatus == STATUS_TO_DOWN ||
+          mogStatus == STATUS_UP) {
+
+            //	ヒット数を増やし、
+            ++gNumHits;
+            //	たたかれた状態にする
+            setStatus(rowIdx, colIdx, STATUS_HOGE);
+          }
+        }
+
+        //	もぐらのケツを（定期的に）蹴る関数
+        function kickMoguraButt() {
+          //	いったんタイマーを止める
+          clearTimeout(gKickingTimer);
+          //	ゲーム時間が終了していたら処理終了
+          if (MAX_IDLE_COUNT <= gIdleCount) {
+            return;
+          }
+          //	タイマーを再スタートする
+          gKickingTimer = setTimeout("kickMoguraButt()", KICKING_INTERVAL);
+
+          //	乱数を使って行・列を決定する
+          var rowIdx = Math.floor(Math.random() * NUM_ROWS);
+          var colIdx = Math.floor(Math.random() * NUM_COLS);
+
+          //	得られた行・列のもぐらの状態を調べ、
+          var mogStatus = getStatus(rowIdx, colIdx);
+          //	もぐっていたら
+          if (mogStatus == STATUS_DOWN) {
+            //	（ケツを蹴って）出させる（出る途中の状態にする）
+            setStatus(rowIdx, colIdx, STATUS_TO_UP);
+          }
+        }
+
+        //	定期的に呼び出され（呼び出し？）、もぐらのコマを進める関数
+        function doIdle() {
+          //	いったんタイマーを止める
+          clearTimeout(gIdleTimer);
+
+          //	この関数が呼ばれた回数（＝ゲーム時間）を１増す
+          ++gIdleCount;
+
+          //	30点
+          if (gNumHits >= 30) {
+            //	得点を表示して終了
+            en = new Date().getTime();
+            clearTimeout(tid);
+            tid = null;
+            time = (en - st) / 1000;
+            name = prompt("あなたのタイムは" + time + "秒でした\n 得点は" + gNumHits * 100 + "点デス\n あなたのお名前を入れてください","");
+            $.get("6.php?name=" + encodeURI(name) + "&time=" + time, function(){
+              ranking();
+            });
+            return(name, gNumHits, time);
+          }
+
+          if (MAX_IDLE_COUNT < gIdleCount) {
+            //	得点を表示して終了
+            alert("ゲーム終了 得点は" + gNumHits * 100 + "点デス");
+            $.get("6.php?name=" + encodeURI(name) + "&time=" + time, function(){
+              ranking();
+            });
+            return;
+          }
+
+          //	タイマーを再スタートする
+          gIdleTimer = setTimeout("doIdle()", IDLE_INTERVAL);
+
+          //	各行について
+          for (rowIdx = 0; rowIdx < NUM_ROWS; ++rowIdx) {
+            //	各列について
+            for (colIdx = 0; colIdx < NUM_COLS; ++colIdx) {
+              //	もぐらの状態を見て
+              var mogStatus = getStatus(rowIdx, colIdx);
+              var nextStatus = STATUS_DOWN;
+
+              //	出てる状態なら、入る途中にする
+              if (mogStatus == STATUS_UP) {
+                nextStatus = STATUS_TO_DOWN;
+              }
+              //	入る途中なら、もぐらせる
+              else if (mogStatus == STATUS_TO_DOWN) {
+                nextStatus = STATUS_DOWN;
+              }
+              //	出る途中なら、出させる
+              else if (mogStatus == STATUS_TO_UP) {
+                nextStatus = STATUS_UP;
+              }
+              //	たたかれたまま、設定コマ数が過ぎたら、もぐらせる
+              else if (STATUS_HOGE_MAX <= mogStatus) {
+                nextStatus = STATUS_DOWN;
+              }
+              //	たたかれた状態なら設定コマ数まで状態を進める
+              else if (STATUS_HOGE <= mogStatus) {
+                nextStatus = mogStatus + 1;
+              }
+
+              //	以上の処理で、状態が変化していたら
+              if (mogStatus != nextStatus) {
+                //	実際に状態を設定する
+                setStatus(rowIdx, colIdx, nextStatus);
+              }
+            }
+          }
+        }
+
+        //	ゲームの状態を初期化し、スタートさせる
+        function game_start() {
+          gIdleCount = 0;
+          gNumHits = 0;
+          const start = performance.now();
+          st = new Date().getTime();
+
+
+          //	もぐらのケツを蹴るタイマーをスタートさせる
+          kickMoguraButt();
+          //	もぐらの状態を変化させるタイマーをスタートさせる
+          doIdle();
+        }
+
+        function ranking(){
+          _d = new Date().getTime(); //キャッシュ回避のため日時を利用する
+          $.get("6ranking.php?_d=" + _d, function(data){
+            var a = data.split("\n"); //改行で区切る
+            var table = "<table border=1 cellspacing=0 cellpadding=2>";
+            table += "<tr><td>順位</td><td>時間</td><td>名前</td><td>日時</td></tr>";
+            for(i=0;i<a.length-1;i++){
+              var b = a[i].split(","); //カンマで区切る
+              table += "<tr><td>" + (i+1) + "</td><td>" + b[2] + "</td><td>"
+              + b[1] + "</td><td>" + b[0] + "</td></tr>";
+            }
+            table += "</table>";
+            document.getElementById("ranking").innerHTML = table;
+          });
+        }
+        // -->
+      </script>
+    </table>
+
+    <script type="text/javascript">
+    init();
+    var name = document.cookie.replace(/(?:(?:^|.*;\s*)name\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+    if( name ){ //クッキーに名前が保存されているなら名前を入れる
+      document.getElementById("name").value = name;
+    }
+  </script>
+
+  <div style="background:#ffffff; text-align:center; padding:10px; border-radius:10px; border: 2px dotted #556b2f;width:500px;">
+    <form name="MOGURACCHI" action="6ranking.php" method="POST">
+      <input type="button" name="startButton" value="ゲーム開始" onClick="game_start()"><br><br>
+      名前：<input type="text" id="name" onChange='document.cookie = "name=" + this.value + "; max-age=86400"'><br><br>
+      <br>
+
+      <b>ランキング</b><br>
+      <img name="c0", document.c0.src = "/~class6/white/" + parseInt(score / 100) + ".png"; >
+      <img name="c1",document.c1.src = "/~class6/white/" + (parseInt(score / 10) % 10) + ".png";>
+      <img name="c2",document.c2.src = "/~class6/white/" + (score % 10) + ".png"; >
+      <br>
+      <br>
+
+      <script type="text/javascript">
+      <div id="ranking"></div>
+    </script>
+
+  </div>
+<br><br>
+
+  <div style="background:#ffffff; text-align:left; padding:10px; border-radius:10px; border: 2px dotted #556b2f;width:500px;">
+  <h2>
+  <p id="sec1">ゲームについて</p>
+  </h2>
+  <ul>
+  	<li type="disc">遊び方</li>
+    <li type="circle">もぐらの画像をクリック</li>
+	  <li type="circle">30回タップしたらクリア！</li>
+    <br>
+  	<li type="disc">ルール</li>
+    <li type="circle">制限時間30秒</li>
+	  <li type="circle">(点数) = たたいたもぐら×100　点</li>
+    <br>
+    <li type="disc">その他</li>
+    <li type="circle">顔がぴえんとなれば叩けています</li>
+    <li type="circle">最大30,000点</li>
+  </ul>
+
+  </div>
+
+  <img src="mogu0.gif" width="1" height="1">
+  <img src="mogu1.gif" width="1" height="1">
+  <img src="mogu2.gif" width="1" height="1">
+  <img src="mogu3.gif" width="1" height="1">
+</body>
+</html>
