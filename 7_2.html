@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8"/>
+<title>スライドパズル</title>
+<script type="text/javascript">
+var ims = document.getElementsByName("im");
+var aki = 8; //最初の空き位置
+var cnt = 0;
+var a1 = new Array(16); //スライドしたときの効果音を入れる配列
+var a2 = new Audio("finish.mp3"); //完成時の音楽
+var a1_cnt = 0; //次に効果音を鳴らす配列要素の値
+for(i = 0; i < 16; i++){
+ a1[i] = new Audio("move.mp3"); //多重再生のため 9 個のオブジェクトを作成
+}
+
+cnt = 0;
+function counter(obj){
+	cnt++;
+	obj.value="　"+cnt+"　";
+}
+
+function c(p)
+{
+ cnt++;
+ if( p==0 ){
+ if( aki!=1 && aki!=4 ) return　cnt;
+ }else if( p==1 ){
+ if( aki!=0 && aki!=2 && aki!=5 ) return　cnt;
+ } else if( p==2 ){
+ if( aki!=1 && aki!=3 && aki!=6 ) return　cnt;
+ } else if( p==3 ){
+ if( aki!=2 && aki!=7 ) return　cnt;
+ } else if( p==4 ){
+ if( aki!=0 && aki!=5 && aki!=8 ) return　cnt;
+ } else if( p==5 ){
+ if( aki!=1 && aki!=4 && aki!=6 && aki!=9 ) return　cnt;
+ } else if( p==6 ){
+ if( aki!=2 && aki!=5 && aki!=7 && aki!=10 ) return　cnt;
+ } else if( p==7 ){
+ if( aki!=3 && aki!=6 && aki!=11 ) return　cnt;
+ } else if( p==8 ){
+ if( aki!=4 && aki!=9 && aki!=12 ) return　cnt;
+} else if( p==9 ){
+ if( aki!=5 && aki!=8 && aki!=10 && aki!=13 ) return　cnt;
+} else if( p==10 ){
+ if( aki!=6 && aki!=9 && aki!=11 && aki!=14 ) return　cnt;
+} else if( p==11 ){
+ if( aki!=7 && aki!=10 && aki!=15 ) return　cnt;
+} else if( p==12 ){
+ if( aki!=8 && aki!=13 ) return　cnt;
+} else if( p==13 ){
+ if( aki!=9 && aki!=12 && aki!=14 ) return　cnt;
+} else if( p==14 ){
+ if( aki!=10 && aki!=13 && aki!=15 ) return　cnt;
+} else if( p==15 ){
+ if( aki!=11 && aki!=14 ) return　cnt;
+ }
+
+ a1[a1_cnt++].play(); //スライドしたときの効果音を再生
+ a1_cnt &= 15; // a1_cnt が 0～8 の範囲になるように 9 になったら 0 に戻す
+ ims[aki].src = ims[p].src;
+ ims[aki=p].src = "black.png";
+
+ if( ims[0].src.slice(-9)=="tst0.jpg" && ims[1].src.slice(-9)=="tst1.jpg" &&
+ ims[2].src.slice(-9)=="tst2.jpg" && ims[3].src.slice(-9)=="tst3.jpg" && ims[4].src.slice(-9)=="tst4.jpg" &&
+ ims[5].src.slice(-9)=="tst5.jpg" && ims[6].src.slice(-9)=="tst6.jpg" && ims[7].src.slice(-9)=="tst7.jpg"&&
+ ims[8].src.slice(-9)=="tst8.jpg" && ims[9].src.slice(-9)=="tst9.jpg" && ims[10].src.slice(-9)=="tst10.jpg" &&
+ ims[11].src.slice(-9)=="tst11.jpg" && ims[12].src.slice(-9)=="tst12.jpg" && ims[13].src.slice(-9)=="tst13.jpg"&& ims[14].src.slice(-9)=="tst14.jpg"){ //画像ファイル名の長さが X のときは slice(-X) とすること
+ ims[15].src = "tst15.jpg"; //最後の 1 枚を表示
+ a2.play(); //完成時の音楽を再生
+ document.getElementById("msg").innerHTML = '<font color="red">完成です</font>';
+ }
+}
+</script>
+</head>
+<body>
+<a href="#sec1">ゲームについて</a>
+<div style="line-height:0">
+<img name="im" onClick="c(0),counter(x)" src="tst14.jpg" value='0'><img name="im" onClick="c(1),counter(x)" src="tst13.jpg" value='0'><img name="im" onClick="c(2),counter(x)" src="tst12.jpg" value='0'><img name="im" onClick="c(3),counter(x)" src="tst11.jpg" value='0'><br>
+<img name="im" onClick="c(4),counter(x)" src="tst10.jpg" value='0'><img name="im" onClick="c(5),counter(x)" src="tst9.jpg" value='0'><img name="im" onClick="c(6),counter(x)" src="tst8.jpg" value='0'><img name="im" onClick="c(7),counter(x)" src="tst7.jpg" value='0'><br>
+<img name="im" onClick="c(8),counter(x)" src="tst6.jpg" value='0'><img name="im" onClick="c(9),counter(x)" src="tst5.jpg" value='0'><img name="im" onClick="c(10),counter(x)" src="tst4.jpg" value='0'><img name="im" onClick="c(11),counter(x)" src="tst3.jpg" value='0'><br>
+<img name="im" onClick="c(12),counter(x)" src="tst2.jpg" value='0'><img name="im" onClick="c(13),counter(x)" src="tst1.jpg" value='0'><img name="im" onClick="c(14),counter(x)" src="tst0.jpg" value='0'><img name="im" onClick="c(15),counter(x)" src="black.png" value='0'><br>
+
+
+</div>
+<span id="msg">ピースを移動させて完成させてみよう</span><br>
+
+
+<br>
+<br>
+
+<p id="sec1">ゲームについて</p>
+<ul>
+  <li type="disc">遊び方</li>
+  <li type="circle">黒の画像の上下左右の画像をクリック</li>
+  <li type="circle">黒い画像と入れ替わるよ</li>
+  <li type="circle">上下左右に画像を動かして画像を完成させよう</li>
+  <br>
+</ul>
+
+</body>
+</html>
