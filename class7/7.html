@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8"/>
+<title>スライドパズル</title>
+<script type="text/javascript">
+var ims = document.getElementsByName("im");
+var aki = 3; //最初の空き位置
+var a1 = new Array(4); //スライドしたときの効果音を入れる配列
+var a2 = new Audio("完成時に流す音楽のファイル名"); //完成時の音楽
+var a1_cnt = 0; //次に効果音を鳴らす配列要素の値
+for(i = 0; i < 4; i++){
+ a1[i] = new Audio("スライドしたときの効果音のファイル名"); //多重再生のため 4 個のオブジェクトを作成
+}
+function c(p)
+{
+ if( p==0 || p==3 ){
+ if( aki!=1 && aki!=2 ) return;
+ }else if( p==1 || p==2 ){
+ if( aki!=0 && aki!=3 ) return;
+ }
+ a1[a1_cnt++].play(); //スライドしたときの効果音を再生
+ a1_cnt &= 3; // a1_cnt が 0～3 の範囲になるように 4 になったら 0 に戻す
+ ims[aki].src = ims[p].src;
+ ims[aki=p].src = "black.png";
+
+ if( ims[0].src.slice(-9)=="test1_0.jpg" && ims[1].src.slice(-9)=="test1_1.jpg" &&
+ ims[2].src.slice(-9)=="test1_2.jpg" ){ //画像ファイル名の長さが X のときは slice(-X) とすること
+ ims[3].src = "test1_3.jpg"; //最後の 1 枚を表示
+ a2.play(); //完成時の音楽を再生
+ document.getElementById("msg").innerHTML = '<font color="red">完成です</font>';
+ }
+}
+</script>
+</head>
+<body>
+<div style="line-height:0">
+<img name="im" onClick="c(0)" src="test1_1.jpg"><img name="im" onClick="c(1)" src="test1_2.jpg"><br>
+<img name="im" onClick="c(2)" src="test1_0.jpg"><img name="im" onClick="c(3)" src="black.png">
+</div>
+<span id="msg">ピースを移動させて完成させてみよう</span>
+</body>
+</html>
