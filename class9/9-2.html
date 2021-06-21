@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8"/>
+<title>アナログ時計</title>
+</head>
+
+<body background="https:~~">
+<h3>アナログ時計</h3>
+<canvas id="c1" width="300" height="300"></canvas>
+<script type="text/javascript">
+var canvas = document.getElementById('c1');
+var ctx = canvas.getContext("2d");
+function update(){
+ ctx.clearRect(0, 0, 300, 300);
+ ctx.fillStyle = '#FFFFFF';
+ ctx.strokeStyle = '#000000';
+ ctx.beginPath();
+ ctx.arc(150, 150, 100, 0, 2.0 * Math.PI, true);
+ ctx.stroke();
+ ctx.fill();
+
+ ctx.fillStyle = '#000000'; // 文字の色
+ ctx.font = "24px 'ＭＳ ゴシック'";
+ ctx.textAlign = 'center';
+ ctx.textBaseline = 'bottom';
+ for(i = 1; i <= 12; i++){
+ ctx.fillText(i, 150 + 84 * Math.sin(2 * Math.PI * i / 12), 164 - 84 * Math.cos(2 * Math.PI * i / 12));
+ }
+
+ var date = new Date();
+ var hh = date.getHours();
+ var mm = date.getMinutes();
+ var ss = date.getSeconds();
+ ctx.strokeStyle = '#0000ff';
+ ctx.beginPath();
+ ctx.moveTo(150, 150);
+ ctx.lineTo(150 + 54 * Math.sin(2 * Math.PI * (hh + 1)/ 12),  164 - 54 * Math.cos(2 * Math.PI * (hh + 1)/ 12)); // ここに式を入れる
+ ctx.moveTo(150, 150);
+ ctx.lineTo(150 + 84 * Math.sin(2 * Math.PI * mm / 60),  164 - 84 * Math.cos(2 * Math.PI * mm / 60)); // ここに式を入れる
+ ctx.moveTo(150, 150);
+ ctx.lineTo(150 + 84 * Math.sin(2 * Math.PI * ss / 60),  164 - 84 * Math.cos(2 * Math.PI * ss / 60)); // ここに式を入れる
+ ctx.stroke();
+ setTimeout("update()", 1000); // 1000 ミリ秒経過後に update() を実行する
+}
+update();
+</script>
+<div class="calendar-container">
+    <h1>June 2021</h1>
+    <table class="calendar">
+      <tr>
+        <th>SUN</th>
+        <th>MON</th>
+        <th>TUE</th>
+        <th>WED</th>
+        <th>THU</th>
+        <th>FRI</th>
+        <th>SAT</th>
+      </tr>
+      <tr class="day">
+        <td></td>
+        <td></td>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <td>5</td>
+      </tr>
+      <tr class="day">
+        <td>6</td>
+        <td>7</td>
+        <td>8</td>
+        <td>9</td>
+        <td>10</td>
+        <td>11</td>
+        <td>12</td>
+      </tr>
+      <tr class="day">
+        <td>13</td>
+        <td>14</td>
+        <td>15</td>
+        <td>16</td>
+        <td>17</td>
+        <td>18</td>
+        <td>19</td>
+      </tr>
+      <tr class="day">
+        <td>20</td>
+        <td>21</td>
+        <td>22</td>
+        <td>23</td>
+        <td>24</td>
+        <td>25</td>
+        <td>26</td>
+      </tr>
+      <tr class="day">
+        <td>27</td>
+        <td>28</td>
+        <td>29</td>
+        <td>30</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </table>
+  </div>
+  <style>
+  .calendar-container {
+  width: 500px;
+  margin: 0 auto;
+  border-radius: 5px;
+  background: #f6f5f4;
+  color: #1a1a1a;
+}
+h1 {
+  height: 80px;
+  line-height: 80px;
+  text-align: center;
+  font-size: 24px;
+  margin: 0;
+}
+.calendar {
+  padding: 0 30px 30px 30px;
+}
+table {
+  width: 100%;
+}
+th, td {
+  text-align: center;
+  padding: 10px;
+}
+th {
+  font-weight: normal;
+  font-size: 14px;
+}
+td {
+  font-weight: bold;
+}
+.day *:first-child {
+  color: #ff838b;
+}
+.day *:last-child {
+  color: #6fb5ff;
+}
+</style>
+</body>
+</html>
